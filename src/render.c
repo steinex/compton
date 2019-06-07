@@ -1135,6 +1135,11 @@ bool init_render(session_t *ps) {
 
 	// Blur filter
 	if (ps->o.blur_method) {
+		if (!ps->o.blur_kerns) {
+			ps->o.blur_kerns = generate_blur_kernel(ps->o.blur_method,
+					ps->o.blur_radius, ps->o.blur_deviation);
+		}
+
 		int npasses;
 		for (npasses = 0; ps->o.blur_kerns[npasses]; npasses++)
 			;

@@ -8,6 +8,7 @@
 #include <stdbool.h>
 
 #include "region.h"
+#include "config.h"
 
 typedef struct session session_t;
 typedef struct win win;
@@ -38,3 +39,6 @@ default_backend_render_shadow(backend_t *backend_data, int width, int height,
                               const conv *kernel, double r, double g, double b, double a);
 
 void init_backend_base(struct backend_base *base, session_t *ps);
+
+struct conv **
+generate_blur_kernel(enum blur_method method, int blur_size, double blur_deviation);
