@@ -30,6 +30,7 @@ typedef struct {
 	GLint unifm_offset_y;
 	GLint unifm_opacity;
 	GLint orig_loc;
+	GLint texorig_loc;
 } gl_blur_shader_t;
 
 typedef struct {
@@ -63,6 +64,8 @@ struct gl_data {
 	int height, width;
 	gl_win_shader_t win_shader;
 	gl_fill_shader_t fill_shader;
+	GLuint back_texture, back_fbo;
+	GLuint present_prog;
 
 	/// Called when an gl_texture is decoupled from the texture it refers. Returns
 	/// the decoupled user_data
@@ -111,6 +114,8 @@ void gl_get_blur_size(void *blur_context, int *width, int *height);
 
 bool gl_is_image_transparent(backend_t *base, void *image_data);
 void gl_fill(backend_t *base, struct color, const region_t *clip);
+
+void gl_present(backend_t *base);
 
 static inline void gl_delete_texture(GLuint texture) {
 	glDeleteTextures(1, &texture);
